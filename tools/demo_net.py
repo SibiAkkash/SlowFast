@@ -35,7 +35,7 @@ def run_demo(cfg, frame_provider):
     logging.setup_logging(cfg.OUTPUT_DIR)
     # Print config.
     logger.info("Run demo with config:")
-    logger.info(cfg)
+    # logger.info(cfg)
     common_classes = (
         cfg.DEMO.COMMON_CLASS_NAMES
         if len(cfg.DEMO.LABEL_FILE_PATH) != 0
@@ -77,8 +77,11 @@ def run_demo(cfg, frame_provider):
         num_task += 1
 
         model.put(task)
+        print(f'processing clip {num_task}')
         try:
             task = model.get()
+            # print(task)
+            print(f'got results for clip {num_task}')
             num_task -= 1
             yield task
         except IndexError:
@@ -87,11 +90,14 @@ def run_demo(cfg, frame_provider):
     while num_task != 0:
         try:
             task = model.get()
+            # print(task)
+            print(f'got results for clip {num_task}')
             num_task -= 1
             yield task
-        except IndexError:
+        except IndexError:  
             continue
 
+    async_vis.shutdown()
 
 def demo(cfg):
     """

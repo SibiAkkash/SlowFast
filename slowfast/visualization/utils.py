@@ -310,16 +310,34 @@ def process_cv2_inputs(frames, cfg):
         cfg (CfgNode): configs. Details can be found in
             slowfast/config/defaults.py
     """
+    # ShortSideScale(size=transform_params["side_size"]),
+    # CenterCropVideo(
+    #     crop_size=(transform_params["crop_size"], transform_params["crop_size"])
+    # )
+
+    # Lambda(lambda x: x/255.0),
     inputs = torch.from_numpy(np.array(frames)).float() / 255
+    # NormalizeVideo(mean, std),
     inputs = tensor_normalize(inputs, cfg.DATA.MEAN, cfg.DATA.STD)
     # T H W C -> C T H W.
     inputs = inputs.permute(3, 0, 1, 2)
     # Sample frames for num_frames specified.
+    
+    # UniformTemporalSubsample(transform_params["num_frames"]),
+
     index = torch.linspace(0, inputs.shape[1] - 1, cfg.DATA.NUM_FRAMES).long()
     inputs = torch.index_select(inputs, 1, index)
+    print(inputs.shape)
     inputs = pack_pathway_output(cfg, inputs)
     inputs = [inp.unsqueeze(0) for inp in inputs]
+    
+    print(inputs[0].shape)
+    
+    # tmp = torch.from_numpy(np.array(inputs))
+    # print(tmp.shape)
+    
     return inputs
+
 
 
 def get_layer(model, layer_name):

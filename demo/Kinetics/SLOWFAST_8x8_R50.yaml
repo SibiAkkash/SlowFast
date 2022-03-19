@@ -42,7 +42,7 @@ SOLVER:
   MAX_EPOCH: 196
   MOMENTUM: 0.9
   WEIGHT_DECAY: 1e-4
-  WARMUP_EPOCHS: 34
+  WARMUP_EPOCHS: 34.0
   WARMUP_START_LR: 0.01
   OPTIMIZING_METHOD: sgd
 MODEL:
@@ -59,8 +59,9 @@ DATA_LOADER:
   PIN_MEMORY: True
 DEMO:
   ENABLE: True
-  LABEL_FILE_PATH:  # Add local label file path here.
-  WEBCAM: 0
+  LABEL_FILE_PATH: /media/sibi/DATA/dev/ai/internship/action_clips/classnames.json # Add local label file path here.
+  WEBCAM: -1
+  INPUT_VIDEO: /media/sibi/DATA/dev/ai/internship/action_clips/qr_code_scanning/001.mp4
 NUM_GPUS: 1
 NUM_SHARDS: 1
 RNG_SEED: 0

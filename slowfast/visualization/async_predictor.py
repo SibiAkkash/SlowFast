@@ -2,6 +2,7 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 
 import atexit
+import os
 import numpy as np
 import queue
 import torch
@@ -145,6 +146,7 @@ class AsyncVis:
             while True:
                 task = self.task_queue.get()
                 if isinstance(task, _StopToken):
+                    print(f'vis worker process {os.getpid()}')
                     break
 
                 frames = draw_predictions(task, self.video_vis)
@@ -209,6 +211,7 @@ class AsyncVis:
                 del self.get_indices_ls[0]
                 return res
             self.result_data[idx] = res
+            print(f'\n\n\n storing results for task {idx}')
 
     def __call__(self, task):
         """

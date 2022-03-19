@@ -169,7 +169,8 @@ class ImgVisualizer(Visualizer):
             font_size=font_size,
             color=color,
             box_facecolors=box_facecolors[:num_text_split][::-1],
-            alpha=alpha,
+            # alpha=alpha,
+            alpha=1.0
         )
         self.draw_multiple_text_downward(
             text_ls[num_text_split:],
@@ -178,7 +179,8 @@ class ImgVisualizer(Visualizer):
             font_size=font_size,
             color=color,
             box_facecolors=box_facecolors[num_text_split:],
-            alpha=alpha,
+            # alpha=alpha,
+            alpha=1.0
         )
 
     def draw_multiple_text_upward(
@@ -391,7 +393,7 @@ class VideoVisualizer:
         if mode == "thres":
             self._get_thres_array(common_class_names=common_class_names)
 
-        self.color_map = plt.get_cmap(colormap)
+        self.color_map = plt.get_cmap("gnuplot")
 
     def _get_color(self, class_id):
         """
@@ -406,8 +408,8 @@ class VideoVisualizer:
         frame,
         preds,
         bboxes=None,
-        alpha=0.5,
-        text_alpha=0.7,
+        alpha=1.0,
+        text_alpha=1.0,
         ground_truth=False,
     ):
         """
@@ -467,7 +469,7 @@ class VideoVisualizer:
         frame_visualizer = ImgVisualizer(frame, meta=None)
         font_size = min(
             max(np.sqrt(frame.shape[0] * frame.shape[1]) // 35, 5), 9
-        )
+        ) * 1.5
         top_corner = not ground_truth
         if bboxes is not None:
             assert len(preds) == len(
@@ -488,13 +490,15 @@ class VideoVisualizer:
                     edge_color=box_color,
                     line_style=line_style,
                 )
+                
                 frame_visualizer.draw_multiple_text(
                     text,
                     box,
                     top_corner=top_corner,
                     font_size=font_size,
                     box_facecolors=colors,
-                    alpha=text_alpha,
+                    # alpha=text_alpha,
+                    alpha=1.0
                 )
         else:
             text = text_labels[0]

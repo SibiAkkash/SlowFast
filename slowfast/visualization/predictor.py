@@ -3,6 +3,7 @@
 
 import queue
 import cv2
+import numpy
 import torch
 from detectron2 import model_zoo
 from detectron2.config import get_cfg
@@ -77,7 +78,11 @@ class Predictor:
             cv2_transform.scale(self.cfg.DATA.TEST_CROP_SIZE, frame)
             for frame in frames
         ]
+        # print(numpy.array(frames).shape)
+
         inputs = process_cv2_inputs(frames, self.cfg)
+        # print(inputs[0].shape)
+                
         if bboxes is not None:
             index_pad = torch.full(
                 size=(bboxes.shape[0], 1),
@@ -102,6 +107,7 @@ class Predictor:
             preds = torch.tensor([])
         else:
             preds = self.model(inputs, bboxes)
+            # print(preds)
 
         if self.cfg.NUM_GPUS:
             preds = preds.cpu()
