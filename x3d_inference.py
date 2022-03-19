@@ -85,16 +85,16 @@ class _StopToken:
 def another_task():
     ac = ActionPredictionManager(num_workers=1)
     
-    for i in range(500):
+    for i in range(1, 101):
         print(i)
-        if i % 450 == 0:
+        if i % 50 == 0:
             ac.put('../yolov5-train/videos/crops3/scooter_1.mp4')
 
-        time.sleep(1)            
+        time.sleep(0.5)            
 
     ac.shutdown()
 
 if __name__ == "__main__":
-    # another_task()
-    pass
+    another_task()
+    # pass
     
