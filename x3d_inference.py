@@ -6,6 +6,7 @@ import torch
 from slowfast.utils.parser import load_config, parse_args
 from slowfast.config.defaults import get_cfg
 from pprint import pprint
+import atexit
 
 # FILE = Path(__file__).resolve()
 # print(FILE)
@@ -22,7 +23,6 @@ import multiprocessing as mp
 
 DIR_ROOT = "/media/sibi/DATA/dev/ai/internship"
 
-
 class ActionPredictionManager:
     class _PredWorker(mp.Process):
         def __init__(self, video_queue, cfg):
@@ -37,6 +37,7 @@ class ActionPredictionManager:
                     break
 
                 video_name = input_video_path.split("/")[-1]
+                input_video_path = os.path.join(DIR_ROOT, "yolov5-train", input_video_path)
                 output_video_path = os.path.join(
                     DIR_ROOT, "slowfast/output_videos", video_name
                 )
@@ -45,7 +46,11 @@ class ActionPredictionManager:
 
                 self.cfg.DEMO.INPUT_VIDEO = input_video_path
                 self.cfg.DEMO.OUTPUT_FILE = output_video_path
-
+                
+                print(input_video_path, output_video_path)
+                
+                time.sleep(1)
+            
                 demo(self.cfg)
                 print(f'\n\n\n done processing {input_video_path} \n\n\n')
 
@@ -62,6 +67,8 @@ class ActionPredictionManager:
 
         for p in self.procs:
             p.start()
+            
+        atexit.register(self.shutdown)
 
     def load_config(self):
         self.cfg = get_cfg()
