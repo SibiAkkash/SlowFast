@@ -46,6 +46,8 @@ class ActionPredictionManager:
 
                 self.cfg.DEMO.INPUT_VIDEO = input_video_path
                 self.cfg.DEMO.OUTPUT_FILE = output_video_path
+                self.cfg.NUM_GPUS = 0
+                self.cfg.DEMO.BUFFER_SIZE = 0
                 
                 print(input_video_path, output_video_path)
                 
@@ -91,13 +93,8 @@ class _StopToken:
 
 def another_task():
     ac = ActionPredictionManager(num_workers=1)
-    
-    for i in range(1, 101):
-        print(i)
-        if i % 50 == 0:
-            ac.put('../yolov5-train/videos/crops3/scooter_1.mp4')
 
-        time.sleep(0.5)            
+    ac.put('videos/crops44/scooter_1.mp4')
 
     ac.shutdown()
 
