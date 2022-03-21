@@ -1,7 +1,7 @@
 TRAIN:
-  ENABLE: False # default True
+  ENABLE: True 
   DATASET: ptvkinetics
-  BATCH_SIZE: 128
+  BATCH_SIZE: 8
   EVAL_PERIOD: 10
   CHECKPOINT_PERIOD: 10
   AUTO_RESUME: True
@@ -12,11 +12,10 @@ X3D:
   DIM_C5: 2048
   DIM_C1: 12
 TEST:
-  ENABLE: False
+  ENABLE: True
   DATASET: ptvkinetics
   BATCH_SIZE: 2
   # CHECKPOINT_FILE_PATH: 'x3d_m.pyth' # 76.21% top1 30-view accuracy to download from the model zoo (optional).
-  CHECKPOINT_FILE_PATH: ./checkpoints/pysf_ptvX3D_M_00270.pyth
   # NUM_SPATIAL_CROPS: 1
   NUM_SPATIAL_CROPS: 3
 DATA:
@@ -27,11 +26,9 @@ DATA:
   # TEST_CROP_SIZE: 224 # use if TEST.NUM_SPATIAL_CROPS: 1
   TEST_CROP_SIZE: 256 # use if TEST.NUM_SPATIAL_CROPS: 3
   INPUT_CHANNEL_NUM: [3]
-  PATH_TO_DATA_DIR: ./action_clips_resized
-  PATH_PREFIX: ./action_clips_resized
-  # PATH_LABEL_SEPARATOR: ','
+  PATH_TO_DATA_DIR: /content/action_clips_resized
+  PATH_PREFIX: /content/action_clips_resized
   TARGET_FPS: 25
-
 RESNET:
   ZERO_INIT_FINAL_BN: True
   TRANS_FUNC: x3d_transform
@@ -55,18 +52,20 @@ MODEL:
   MODEL_NAME: PTVX3D
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
+
 DATA_LOADER:
   NUM_WORKERS: 2
   PIN_MEMORY: True
 
-DEMO:
+TENSORBOARD:
   ENABLE: True
-  LABEL_FILE_PATH: ./action_clips_resized/classnames.json
-  # INPUT_VIDEO: ../yolov5-train/videos/crops3/scooter_3.mp4
-  # OUTPUT_FILE: ../slowfast/output_videos/scooter_3_buffer_40.mp4
-  THREAD_ENABLE: False
-  BUFFER_SIZE: 40
+  CLASS_NAMES_PATH: /content/action_clips_resized/classnames.json
+  CONFUSION_MATRIX:
+    ENABLE: True
+    FIGSIZE: [16, 16]
+    SUBSET_PATH: /content/action_clips_resized/classnames.txt
 
 NUM_GPUS: 1
 RNG_SEED: 0
-OUTPUT_DIR: .
+OUTPUT_DIR: /content/drive/MyDrive/scooter-ds
+
