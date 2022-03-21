@@ -1,4 +1,3 @@
-import re
 from flask import Flask, request
 from x3d_inference import ActionPredictionManager
 import json
