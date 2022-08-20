@@ -6,7 +6,8 @@ import atexit
 from tools.demo_net import demo
 import multiprocessing as mp
 
-DIR_ROOT = os.path.expanduser("~/projects/python")
+# DIR_ROOT = os.path.expanduser("~/projects/python")
+DIR_ROOT = "/media/sibi/DATA/dev/ai/internship"
 INPUT_VIDEO_DIR = os.path.join(DIR_ROOT, "yolov5-train")
 OUTPUT_VIDEO_DIR = os.path.join(DIR_ROOT, "slowfast/output_videos")
 
@@ -27,7 +28,7 @@ class ActionPredictionManager:
                 video_name = input_video_path.split("/")[-1]
                 input_video_path = os.path.join(INPUT_VIDEO_DIR, input_video_path)
                 output_video_path = os.path.join(OUTPUT_VIDEO_DIR, video_name)
-                
+
                 print(input_video_path)
                 print(output_video_path)
 
@@ -63,7 +64,6 @@ class ActionPredictionManager:
         # self.cfg.NUM_GPUS = 0
         self.cfg.DEMO.BUFFER_SIZE = 0
         self.cfg.DEMO.NUM_VIS_INSTANCES = 1
-
 
     def put(self, path):
         print("incoming video")

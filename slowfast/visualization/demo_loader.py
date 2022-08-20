@@ -95,8 +95,7 @@ class VideoManager:
         task.add_frames(self.id, frames)
         task.num_buffer_frames = 0 if self.id == 0 else self.buffer_size
         
-        # print(f'num frames: {len(task.frames)}')        
-        logger.info(f'num frames: {len(task.frames)}')
+        # logger.info(f'num frames: {len(task.frames)}')
 
         return was_read, task
 

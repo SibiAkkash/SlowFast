@@ -446,7 +446,7 @@ _C.DATA.INPUT_CHANNEL_NUM = [3, 3]
 # The std value of the video raw pixels across the R G B channels.
 _C.DATA.STD = [0.225, 0.225, 0.225]
 
-# The spatial augmentation jitter scales for training.
+# The spatial augmentation jitter scales for trainiIn ng.
 _C.DATA.TRAIN_JITTER_SCALES = [256, 320]
 
 # The relative scale range of Inception-style area based random resizing augmentation.
