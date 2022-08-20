@@ -6,8 +6,7 @@ import atexit
 from tools.demo_net import demo
 import multiprocessing as mp
 
-# DIR_ROOT = os.path.expanduser("~/projects/python")
-DIR_ROOT = "/media/sibi/DATA/dev/ai/internship"
+DIR_ROOT = os.path.expanduser("~/projects/python")
 INPUT_VIDEO_DIR = os.path.join(DIR_ROOT, "yolov5-train")
 OUTPUT_VIDEO_DIR = os.path.join(DIR_ROOT, "slowfast/output_videos")
 
